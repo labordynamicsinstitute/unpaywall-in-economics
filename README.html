@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Lars Vilhuber" />
+
+<meta name="date" content="2018-10-15" />
+
+<title>Issues with Unpaywall in Economics</title>
+
+<script src="README_files/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="README_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="README_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="README_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="README_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="README_files/navigation-1.1/tabsets.js"></script>
+<link href="README_files/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="README_files/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Issues with Unpaywall in Economics</h1>
+<h4 class="author"><em>Lars Vilhuber</em></h4>
+<h4 class="date"><em>October 15, 2018</em></h4>
+
+</div>
+
+
+<div id="unpaywall" class="section level2">
+<h2>Unpaywall</h2>
+<p><a href="https://unpaywall.org/">Unpaywall</a> is “an open database of 21,403,865 free scholarly articles” which is construted by “[harvesting] Open Access content from over 50,000 publishers and repositories” (<a href="https://unpaywall.org/">Unpaywall</a>).</p>
+<p>We investigated the usefulness and accuracy of Unpaywall for use in economics, and found some issues. This is not a systematic review!</p>
+</div>
+<div id="repec" class="section level2">
+<h2>RePEc</h2>
+<p><a href="http://repec.org/">RePEc (Research Papers in Economics)</a> is a “collaborative effort of hundreds of volunteers in 99 countries to enhance the dissemination of research in Economics and related sciences” (<a href="http://repec.org/">RePEc</a>). <a href="https://ideas.repec.org/">IDEAS</a> is “the largest bibliographic database dedicated to Economics and available freely on the Internet. Based on RePEc, it indexes over 2,700,000 items of research, including over 2,500,000 that can be downloaded in full text” (<a href="https://ideas.repec.org/">IDEAS</a> ).</p>
+</div>
+<div id="our-approach" class="section level2">
+<h2>Our Approach</h2>
+<p>We picked a few DOIs where we know that reasonable data exists on Google Scholar as well as on <a href="https://ideas.repec.org/">IDEAS/RePEc</a>. We then investigated the available information on Unpaywall.</p>
+<pre class="r"><code># select DOIs
+dois = c(&quot;10.1257/aer.102.3.589&quot;,&quot;10.1257/mac.20150245&quot;,&quot;10.1257/aer.p20171020&quot;)
+unpaywall &lt;- roadoi::oadoi_fetch(dois,email=&quot;lars@vilhuber.com&quot;)
+refs &lt;- rcrossref::cr_cn(dois,format = &quot;text&quot;)</code></pre>
+<div id="example-1-hard" class="section level3">
+<h3>Example 1: Hard</h3>
+<table>
+<colgroup>
+<col width="100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Article:</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Abowd, J. M., &amp; Vilhuber, L. (2012). Did the Housing Price Bubble Clobber Local Labor Market Job and Worker Flows When It Burst? American Economic Review, 102(3), 589–593. <a href="doi:10.1257/aer.102.3.589" class="uri">doi:10.1257/aer.102.3.589</a></td>
+</tr>
+</tbody>
+</table>
+<p>This article in the AER’s Papers and Proceedings is found on Unpaywall through CiteSeer:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">pmh_id</th>
+<th align="left">url</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">oai:CiteSeerX.psu:10.1.1.232.150</td>
+<td align="left"><a href="http://www.aeaweb.org/aea/2012conference/program/retrieve.php?pdfid=605" class="uri">http://www.aeaweb.org/aea/2012conference/program/retrieve.php?pdfid=605</a></td>
+</tr>
+</tbody>
+</table>
+<p>which points to the conference program website. However, a Google search would also have found the full PDF at <a href="https://digitalcommons.ilr.cornell.edu/ldi/2/" class="uri">https://digitalcommons.ilr.cornell.edu/ldi/2/</a>. As it turns out, the latter, because it is posted AFTER the conference, is actually a better version to use, but that may not be generally the case.</p>
+</div>
+<div id="example-2-repec-has-the-partial-answer" class="section level3">
+<h3>Example 2: RePEc has the partial answer</h3>
+<table>
+<colgroup>
+<col width="100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Article:</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Haltiwanger, J. C., Hyatt, H. R., Kahn, L. B., &amp; McEntarfer, E. (2018). Cyclical Job Ladders by Firm Size and Firm Wage. American Economic Journal: Macroeconomics, 10(2), 52–85. <a href="doi:10.1257/mac.20150245" class="uri">doi:10.1257/mac.20150245</a></td>
+</tr>
+</tbody>
+</table>
+<p>This article in the AER is listed on Unpaywall without an OA option:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">doi</th>
+<th align="left">is_oa</th>
+<th align="left">journal_is_oa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">10.1257/mac.20150245</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+</tr>
+</tbody>
+</table>
+<p>However, RePEc actually puts this article (<a href="https://ideas.repec.org/a/aea/aejmac/v10y2018i2p52-85.html" class="uri">https://ideas.repec.org/a/aea/aejmac/v10y2018i2p52-85.html</a>) in relation to the NBER working paper version (<a href="https://ideas.repec.org/p/nbr/nberwo/23485.html" class="uri">https://ideas.repec.org/p/nbr/nberwo/23485.html</a>):</p>
+<table>
+<colgroup>
+<col width="100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">NBER WP:</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Haltiwanger, J., Hyatt, H., Kahn, L., &amp; McEntarfer, E. (2017). Cyclical Job Ladders by Firm Size and Firm Wage. <a href="doi:10.3386/w23485" class="uri">doi:10.3386/w23485</a></td>
+</tr>
+</tbody>
+</table>
+<p>Note that while the NBER is typically not OA, it can be if you are “a journalist” or “a resident of nearly any developing country or transition economy.” Note that this is not coded anywhere.</p>
+</div>
+<div id="example-3-repec-has-the-entire-answer" class="section level3">
+<h3>Example 3: RePEc has the entire answer</h3>
+<table>
+<colgroup>
+<col width="100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Article:</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Decker, R. A., Haltiwanger, J., Jarmin, R. S., &amp; Miranda, J. (2017). Declining Dynamism, Allocative Efficiency, and the Productivity Slowdown. American Economic Review, 107(5), 322–326. <a href="doi:10.1257/aer.p20171020" class="uri">doi:10.1257/aer.p20171020</a></td>
+</tr>
+</tbody>
+</table>
+<p>This article in the AER is also listed on Unpaywall without an OA option:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">doi</th>
+<th align="left">is_oa</th>
+<th align="left">journal_is_oa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">10.1257/aer.p20171020</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+</tr>
+</tbody>
+</table>
+<p>However, RePEc actually puts this article (<a href="https://ideas.repec.org/a/aea/aecrev/v107y2017i5p322-26.html" class="uri">https://ideas.repec.org/a/aea/aecrev/v107y2017i5p322-26.html</a>) in relation with not one, but TWO OA versions: to a <a href="https://ideas.repec.org/p/fip/fedgfe/2017-19.html">Board of Governors Discussion Paper</a> and a <a href="https://ideas.repec.org/p/cen/wpaper/17-17.html">Center for Economic Studies Working Paper</a>:</p>
+<div class="figure">
+<img src="repec_example3.png" alt="Screenshot of RePEc site" />
+<p class="caption">Screenshot of RePEc site</p>
+</div>
+<p>both of which have no download restrictions, and the Board of Governors paper even has a DOI, and thus should be findable within the CrossRef metadata:</p>
+<table>
+<colgroup>
+<col width="100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Board of Governors Discussion Paper:</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Decker, R. A., Haltiwanger, J., Jarmin, R. S., … Miranda, J. (2017). Declining Dynamism, Allocative Efficiency, and the Productivity Slowdown. Finance and Economics Discussion Series, 2017(019). <a href="doi:10.17016/feds.2017.019" class="uri">doi:10.17016/feds.2017.019</a></td>
+</tr>
+</tbody>
+</table>
+<p>However, both are findable, and put in relationship to the AER article, within the RePEc metadata.</p>
+</div>
+</div>
+<div id="repec-again" class="section level2">
+<h2>RePEc again</h2>
+<p>How to obtain RePEc metadata is available at <a href="https://ideas.repec.org/getdata.html" class="uri">https://ideas.repec.org/getdata.html</a> .</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
